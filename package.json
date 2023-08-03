@@ -1,0 +1,15 @@
+{
+  "name": "turbo-repo-updater",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "update": "node index.js"
+  },
+  "bin": {
+    "turbo-repo-updater": "./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
