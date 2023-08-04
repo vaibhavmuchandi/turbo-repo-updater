@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { exec } = require('child_process');
 const { readdirSync, existsSync } = require('fs');
 const { join } = require('path');
@@ -16,29 +17,33 @@ const executeCommand = (command, directory) => {
     });
 };
 
-const updateDependencies = async (ignoreScripts) => {
+const updateDependencies = async () => {
+    const cwd = process.cwd();
     const rootDirectories = ['packages', 'apps'];
-    const command = ignoreScripts ? 'pnpm update --ignore-scripts' : 'pnpm update';
 
     for (const rootDir of rootDirectories) {
-        const subDirectories = readdirSync(join(__dirname, `${rootDir}`));
+        try {
+            const subDirectories = readdirSync(join(cwd, rootDir));
 
-        for (const subDir of subDirectories) {
-            const directoryPath = join(__dirname, `${rootDir}/${subDir}`);
-            const packageJsonPath = join(directoryPath, 'package.json');
+            for (const subDir of subDirectories) {
+                const directoryPath = join(cwd, `${rootDir}/${subDir}`);
+                const packageJsonPath = join(directoryPath, 'package.json');
 
-            if (!existsSync(packageJsonPath)) {
-                console.log(`Skipping ${directoryPath} as it does not contain a package.json file.`);
-                continue;
+                // Check if package.json exists
+                if (!existsSync(packageJsonPath)) {
+                    console.log(`Skipping ${directoryPath} as it does not contain a package.json file.`);
+                    continue;
+                }
+
+                console.log(`Updating dependencies in ${directoryPath}`);
+                await executeCommand('ncu -u', directoryPath);
+                console.log(`Finished updating dependencies in ${directoryPath}`);
             }
-
-            console.log(`Updating dependencies in ${directoryPath}`);
-            await executeCommand(command, directoryPath);
-            console.log(`Finished updating dependencies in ${directoryPath}`);
+        } catch (error) {
+            console.error(`An error occurred while scanning directory ${rootDir}: ${error}`);
         }
     }
 };
 
-const ignoreScripts = process.argv.includes('--ignore-scripts');
-
-updateDependencies(ignoreScripts).catch((error) => console.error(error));
+// Start the updating process
+updateDependencies().catch((error) => console.error(error));

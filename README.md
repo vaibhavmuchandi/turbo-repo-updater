@@ -1,6 +1,6 @@
 # Turbo Repo Updater
 
-Turbo Repo Updater is a utility tool crafted to simplify the process of updating dependencies in Turbo Repo applications. It intelligently traverses the 'apps' and 'packages' directories and executes the `pnpm update` command, gracefully handling directories without `package.json` and providing an option to ignore post-install scripts.
+Turbo Repo Updater is a utility tool designed to simplify the process of updating dependencies in Turbo Repo applications. It traverses the 'apps' and 'packages' directories and uses the `npm-check-updates` command to update the `package.json` files with the latest versions of the dependencies. It gracefully handles directories without `package.json`.
 
 ## Installation
 
@@ -17,10 +17,6 @@ To use Turbo Repo Updater, navigate to the root directory of your Turbo Repo app
 ```bash
 turbo-repo-updater
 ```
-
-### Options
-
-- `--ignore-scripts`: Use this option if you want to ignore post-install scripts during the update process.
 
 ## Features
 
