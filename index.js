@@ -43,6 +43,11 @@ const updateDependencies = async () => {
             console.error(`An error occurred while scanning directory ${rootDir}: ${error}`);
         }
     }
+    console.log('\x1b[32m%s\x1b[0m', 'Finished updating dependencies in all directories.');
+    console.log('\x1b[33m%s\x1b[0m', 'Please run your package manager\'s install command to complete the update:');
+    console.log('\x1b[36m%s\x1b[0m', 'For npm: npm install');
+    console.log('\x1b[36m%s\x1b[0m', 'For yarn: yarn');
+    console.log('\x1b[36m%s\x1b[0m', 'For pnpm: pnpm install');
 };
 
 // Start the updating process

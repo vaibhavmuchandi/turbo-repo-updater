@@ -1,6 +1,6 @@
 {
   "name": "turbo-repo-updater",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Turbo Repo Updater is a command-line utility that automates the process of updating dependencies in Turbo Repo's 'apps' and 'packages' directories, with options to skip certain folders and ignore post-install scripts.",
   "main": "index.js",
   "scripts": {
